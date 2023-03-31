@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "783652409256",
+    "project_id": "kheti-906af",
+    "storage_bucket": "kheti-906af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783652409256:android:cf184b23bc6c943d35d79d",
+        "android_client_info": {
+          "package_name": "com.example.kheti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783652409256-c8rtri7a7fkfh8hgisprc77foe8djdkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kheti",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "783652409256-j9gib03kv6ttsnmi1nemunktc4rol3fn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmuA780ksOPWRLMF0am1F8imFwvzyinoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783652409256-j9gib03kv6ttsnmi1nemunktc4rol3fn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "783652409256-7tv2kflm4ivlesidikdj4u6ulfo0n3hg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutterflow.khetiapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783652409256:android:83bc7fe7f9f7359d35d79d",
+        "android_client_info": {
+          "package_name": "io.flutterflow.khetiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783652409256-gat3kr0cjejtu8pmtqrtogoop29ds1j0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.flutterflow.khetiapp",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "783652409256-j9gib03kv6ttsnmi1nemunktc4rol3fn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmuA780ksOPWRLMF0am1F8imFwvzyinoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783652409256-j9gib03kv6ttsnmi1nemunktc4rol3fn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "783652409256-7tv2kflm4ivlesidikdj4u6ulfo0n3hg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutterflow.khetiapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

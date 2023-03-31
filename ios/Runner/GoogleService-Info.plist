@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>783652409256-7tv2kflm4ivlesidikdj4u6ulfo0n3hg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.783652409256-7tv2kflm4ivlesidikdj4u6ulfo0n3hg</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>783652409256-c8rtri7a7fkfh8hgisprc77foe8djdkr.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAPYmq-n3avcbnO7j6Oi1UuBkGzIatFFac</string>
+	<key>GCM_SENDER_ID</key>
+	<string>783652409256</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.flutterflow.khetiapp</string>
+	<key>PROJECT_ID</key>
+	<string>kheti-906af</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kheti-906af.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:783652409256:ios:6e29cac7a384ca5b35d79d</string>
+</dict>
+</plist>
