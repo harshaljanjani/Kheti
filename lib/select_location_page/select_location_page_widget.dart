@@ -9,8 +9,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'select_destination_page_model.dart';
-export 'select_destination_page_model.dart';
+import 'select_location_page_model.dart';
+export 'select_location_page_model.dart';
 
 class SelectDestinationPageWidget extends StatefulWidget {
   const SelectDestinationPageWidget({Key? key}) : super(key: key);
@@ -205,9 +205,9 @@ class _SelectDestinationPageWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, -0.15),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
-                                '📈 Model Predictions',
+                                '📈 "Maize" is recommended for Vellore',
                                 style: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(

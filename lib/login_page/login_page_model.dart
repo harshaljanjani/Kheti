@@ -3,7 +3,7 @@ import '/create_account_page/create_account_page_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/select_destination_page/select_destination_page_widget.dart';
+import '../select_location_page/select_location_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
