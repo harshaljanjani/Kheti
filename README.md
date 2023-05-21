@@ -49,6 +49,8 @@ Our competitors are mostly **small-scale government schemes** which **lack full-
  6) **API's** - Google Maps in Flutter and Real-Time Crop Prices Data.
 
 ## <ins>In-App</ins> <ins>Screenshots</ins>
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/75426551/230644585-ce64f00d-136f-4d70-adb8-54543dc05f03.png">
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/75426551/230644915-316f5eee-5df6-4fc2-8e3a-e7066e0503d9.png">
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/75426551/230644442-97295817-eae9-4b4a-9f5d-60fa73f56181.png">
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/7e84f916-7e46-4049-8dfd-9e24b14ffac1)
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/f152f92c-6cad-41e7-97c8-03f4a11030b5)
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/ce6c2259-2b60-44ec-bc90-7fac5ec29744)
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/1c973ab2-844f-453b-ab78-2d8248b3fa27)
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/18395d0d-7e74-4004-a2bb-a85050d2954a)
