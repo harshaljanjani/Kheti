@@ -1,9 +1,9 @@
-import '/flutter_flow/flutter_flow_google_map.dart';
-import '/flutter_flow/flutter_flow_place_picker.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/place.dart';
+import '/utilities/google_map.dart';
+import '/utilities/place_picker.dart';
+import '/utilities/theme.dart';
+import '/utilities/util.dart';
+import '/utilities/widgets.dart';
+import '/utilities/place.dart';
 import '/vendors_list/vendors_list_widget.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';

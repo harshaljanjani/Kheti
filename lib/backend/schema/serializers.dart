@@ -2,7 +2,7 @@ import 'package:built_value/standard_json_plugin.dart';
 import 'package:from_css_color/from_css_color.dart';
 
 import 'users_record.dart';
-import 'ride_record.dart';
+import 'routes_record.dart';
 
 import 'index.dart';
 

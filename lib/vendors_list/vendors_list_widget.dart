@@ -1,6 +1,6 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/utilities/theme.dart';
+import '/utilities/util.dart';
+import '/utilities/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -42,35 +42,41 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
       key: scaffoldKey,
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
+        preferredSize: Size.fromHeight(80),
         child: AppBar(
           backgroundColor: Color(0xFF39B046),
+          toolbarHeight: 100,
           automaticallyImplyLeading: false,
           title: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10, 0.0, 0.0),
                 child: Text(
                   'Here\'s Your List Of Vendors!',
-                  style: FlutterFlowTheme.of(context).titleLarge.override(
+                  softWrap: true,
+                  style: FlutterFlowTheme.of(context).titleMedium.override(
                         fontFamily: 'Roboto',
                         color: Colors.white,
-                        fontSize: 26.0,
+                        fontSize: 29.5,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
               ),
-              Text(
+          Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+              child: Text(
                 'Choose the vendor you\'d like to purchase the crop from!',
+                softWrap: true,
                 style: FlutterFlowTheme.of(context).bodySmall.override(
                       fontFamily: 'Outfit',
                       color: Color(0xFF57636C),
-                      fontSize: 14.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                     ),
               ),
+          )
             ],
           ),
           actions: [],
@@ -161,7 +167,7 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(0.0),
-                                    child: Icon(Icons.person_outline,size: 35),
+                                    child: Image(image: AssetImage('assets/images/f9dhs_4.jpg')),
                                   ),
                                 ),
                               ),
@@ -250,7 +256,7 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
                                         2.0, 2.0, 2.0, 2.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(Icons.person_outline,size: 35),
+                                      child: Image(image: AssetImage('assets/images/a29hc_2.jpg')),
                                     ),
                                   ),
                                 ),
@@ -340,7 +346,7 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
                                         2.0, 2.0, 2.0, 2.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(Icons.person_outline,size: 35),
+                                      child: Image(image: AssetImage('assets/images/iapkm_3.jpg')),
                                     ),
                                   ),
                                 ),
@@ -430,7 +436,7 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
                                         2.0, 2.0, 2.0, 2.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(Icons.person_outline,size: 35),
+                                      child: Image(image: AssetImage('assets/images/a29hc_2.jpg')),
                                     ),
                                   ),
                                 ),
@@ -520,7 +526,7 @@ class _VendorsListWidgetState extends State<VendorsListWidget> {
                                         2.0, 2.0, 2.0, 2.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50.0),
-                                      child: Icon(Icons.person_outline,size: 35),
+                                      child: Image(image: AssetImage('assets/images/f9dhs_4.jpg')),
                                     ),
                                   ),
                                 ),

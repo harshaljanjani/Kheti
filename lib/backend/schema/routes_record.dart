@@ -4,7 +4,7 @@ import 'index.dart';
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
 
-part 'ride_record.g.dart';
+part 'routes_record.g.dart';
 
 abstract class RideRecord implements Built<RideRecord, RideRecordBuilder> {
   static Serializer<RideRecord> get serializer => _$rideRecordSerializer;

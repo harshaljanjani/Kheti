@@ -5,7 +5,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:collection/collection.dart';
 
-import 'flutter_flow_widgets.dart';
+import 'widgets.dart';
 import 'lat_lng.dart';
 import 'place.dart';
 

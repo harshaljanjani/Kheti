@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ride_record.dart';
+part of 'routes_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

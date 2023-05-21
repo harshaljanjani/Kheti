@@ -1,13 +1,13 @@
 // Automatic FlutterFlow imports
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'index.dart'; // Imports other custom widgets
+import '/utilities/util.dart';
+// Imports other custom widgets
 import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:http/http.dart' as http;
+import 'package:tuple/tuple.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' hide LatLng;
@@ -16,8 +16,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as latlng;
 
 import 'dart:math' show cos, sqrt, asin;
 
-class RouteViewStatic extends StatefulWidget {
-  const RouteViewStatic({
+class RouteViewLive extends StatefulWidget {
+  const RouteViewLive({
     Key? key,
     this.width,
     this.height,
@@ -27,6 +27,7 @@ class RouteViewStatic extends StatefulWidget {
     required this.iOSGoogleMapsApiKey,
     required this.androidGoogleMapsApiKey,
     required this.webGoogleMapsApiKey,
+    required this.rideDetailsReference,
     this.startAddress,
     this.destinationAddress,
   }) : super(key: key);
@@ -39,24 +40,21 @@ class RouteViewStatic extends StatefulWidget {
   final String iOSGoogleMapsApiKey;
   final String androidGoogleMapsApiKey;
   final String webGoogleMapsApiKey;
+  final DocumentReference rideDetailsReference;
   final String? startAddress;
   final String? destinationAddress;
 
   @override
-  _RouteViewStaticState createState() => _RouteViewStaticState();
+  _RouteViewLiveState createState() => _RouteViewLiveState();
 }
 
-class _RouteViewStaticState extends State<RouteViewStatic> {
+class _RouteViewLiveState extends State<RouteViewLive> {
   late final CameraPosition _initialLocation;
   GoogleMapController? mapController;
-
-  String? _placeDistance;
   Set<Marker> markers = {};
 
-  PolylinePoints? polylinePoints;
-  Map<PolylineId, Polyline> polylines = {};
-  List<latlng.LatLng> polylineCoordinates = [];
-
+  // PolylinePoints polylinePoints;
+  Map<PolylineId, Polyline> initialPolylines = {};
   String get googleMapsApiKey {
     if (kIsWeb) {
       return widget.webGoogleMapsApiKey;
@@ -75,24 +73,18 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
   }
 
   // Method for calculating the distance between two places
-  Future<bool> _calculateDistance() async {
-    setState(() {
-      if (markers.isNotEmpty) markers.clear();
-      if (polylines.isNotEmpty) polylines.clear();
-      if (polylineCoordinates.isNotEmpty) polylineCoordinates.clear();
-      _placeDistance = null;
-    });
+  Future<Map<PolylineId, Polyline>?> _calculateDistance({
+    required double startLatitude,
+    required double startLongitude,
+    required double destinationLatitude,
+    required double destinationLongitude,
+  }) async {
+    if (markers.isNotEmpty) markers.clear();
 
     try {
       // Use the retrieved coordinates of the current position,
       // instead of the address if the start position is user's
       // current position, as it results in better accuracy.
-      double startLatitude = widget.startCoordinate.latitude;
-      double startLongitude = widget.startCoordinate.longitude;
-
-      double destinationLatitude = widget.endCoordinate.latitude;
-      double destinationLongitude = widget.endCoordinate.longitude;
-
       String startCoordinatesString = '($startLatitude, $startLongitude)';
       String destinationCoordinatesString =
           '($destinationLatitude, $destinationLongitude)';
@@ -117,6 +109,10 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
           snippet: widget.destinationAddress ?? '',
         ),
         icon: BitmapDescriptor.defaultMarker,
+        // icon: await BitmapDescriptor.fromAssetImage(
+        //   ImageConfiguration(size: Size(20, 20)),
+        //   'assets/images/cab-top-view.png',
+        // ),
       );
 
       // Adding the markers to the list
@@ -163,8 +159,15 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
         ),
       );
 
-      await _createPolylines(startLatitude, startLongitude, destinationLatitude,
-          destinationLongitude);
+      final result = await _createPolylines(
+        startLatitude,
+        startLongitude,
+        destinationLatitude,
+        destinationLongitude,
+      );
+
+      final polylines = result.item1;
+      final polylineCoordinates = result.item2;
 
       double totalDistance = 0.0;
 
@@ -179,10 +182,10 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
         );
       }
 
-      _placeDistance = totalDistance.toStringAsFixed(2);
-      debugPrint('MAP::DISTANCE: $_placeDistance km');
+      final placeDistance = totalDistance.toStringAsFixed(2);
+      debugPrint('MAP::DISTANCE: $placeDistance km');
       FFAppState().update(() {
-        FFAppState().routeDistance = '$_placeDistance km';
+        FFAppState().routeDistance = '$placeDistance km';
       });
 
       var url = Uri.parse(
@@ -196,7 +199,6 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
         final String durationText =
             jsonResponse['rows'][0]['elements'][0]['duration']['text'];
         debugPrint('MAP::$durationText');
-
         FFAppState().update(() {
           FFAppState().routeDuration = '$durationText';
         });
@@ -204,13 +206,11 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
         debugPrint('ERROR in distance matrix API');
       }
 
-      setState(() {});
-
-      return true;
+      return polylines;
     } catch (e) {
       debugPrint(e.toString());
     }
-    return false;
+    return null;
   }
 
   // Formula for calculating distance between two coordinates
@@ -225,22 +225,22 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
   }
 
   // Create the polylines for showing the route between two places
-  _createPolylines(
+  Future<Tuple2<Map<PolylineId, Polyline>, List<latlng.LatLng>>>
+      _createPolylines(
     double startLatitude,
     double startLongitude,
     double destinationLatitude,
     double destinationLongitude,
   ) async {
-    polylinePoints = PolylinePoints();
-    PolylineResult result = await polylinePoints!.getRouteBetweenCoordinates(
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleMapsApiKey, // Google Maps API Key
       PointLatLng(startLatitude, startLongitude),
       PointLatLng(destinationLatitude, destinationLongitude),
       travelMode: TravelMode.driving,
     );
 
-    debugPrint('MAP::STATUS: ${result.status}');
-    debugPrint('MAP::POLYLINES: ${result.points.length}');
+    List<latlng.LatLng> polylineCoordinates = [];
 
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
@@ -255,7 +255,27 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
       points: polylineCoordinates,
       width: 3,
     );
-    polylines[id] = polyline;
+    // polylines[id] = polyline;
+
+    return Tuple2({id: polyline}, polylineCoordinates);
+  }
+
+  initPolylines() async {
+    double startLatitude = widget.startCoordinate.latitude;
+    double startLongitude = widget.startCoordinate.longitude;
+
+    double destinationLatitude = widget.endCoordinate.latitude;
+    double destinationLongitude = widget.endCoordinate.longitude;
+    final initPolylines = await _calculateDistance(
+      startLatitude: startLatitude,
+      startLongitude: startLongitude,
+      destinationLatitude: destinationLatitude,
+      destinationLongitude: destinationLongitude,
+    );
+    if (initPolylines != null) {
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => setState(() => initialPolylines = initPolylines));
+    }
   }
 
   @override
@@ -274,23 +294,86 @@ class _RouteViewStaticState extends State<RouteViewStatic> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      width: widget.width,
-      child: GoogleMap(
-        markers: Set<Marker>.from(markers),
-        initialCameraPosition: _initialLocation,
-        myLocationEnabled: true,
-        myLocationButtonEnabled: false,
-        mapType: MapType.normal,
-        zoomGesturesEnabled: true,
-        zoomControlsEnabled: false,
-        polylines: Set<Polyline>.of(polylines.values),
-        onMapCreated: (GoogleMapController controller) {
-          mapController = controller;
-          _calculateDistance();
-        },
-      ),
+    return StreamBuilder<RideRecord>(
+      stream: RideRecord.getDocument(widget.rideDetailsReference),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            height: widget.height,
+            width: widget.width,
+            child: GoogleMap(
+              markers: Set<Marker>.from(markers),
+              initialCameraPosition: _initialLocation,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              mapType: MapType.normal,
+              zoomGesturesEnabled: true,
+              zoomControlsEnabled: false,
+              polylines: Set<Polyline>.of(initialPolylines.values),
+              onMapCreated: (GoogleMapController controller) {
+                mapController = controller;
+                initPolylines();
+              },
+            ),
+          );
+        }
+
+        final rideRecord = snapshot.data;
+        debugPrint('MAP::UPDATED');
+
+        return Container(
+          height: widget.height,
+          width: widget.width,
+          child: FutureBuilder<Map<PolylineId, Polyline>?>(
+              future: _calculateDistance(
+                startLatitude: rideRecord!.driverLocation!.latitude,
+                startLongitude: rideRecord.driverLocation!.longitude,
+                destinationLatitude: rideRecord.userLocation!.latitude,
+                destinationLongitude: rideRecord.userLocation!.longitude,
+              ),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return GoogleMap(
+                    markers: Set<Marker>.from(markers),
+                    initialCameraPosition: CameraPosition(
+                      target: latlng.LatLng(
+                        rideRecord.destinationLocation!.latitude,
+                        rideRecord.destinationLocation!.longitude,
+                      ),
+                    ),
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: false,
+                    mapType: MapType.normal,
+                    zoomGesturesEnabled: true,
+                    zoomControlsEnabled: false,
+                    polylines: Set<Polyline>.of(initialPolylines.values),
+                    onMapCreated: (GoogleMapController controller) {
+                      mapController = controller;
+                    },
+                  );
+                }
+
+                return GoogleMap(
+                  markers: Set<Marker>.from(markers),
+                  initialCameraPosition: CameraPosition(
+                    target: latlng.LatLng(
+                      rideRecord.destinationLocation!.latitude,
+                      rideRecord.destinationLocation!.longitude,
+                    ),
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  mapType: MapType.normal,
+                  zoomGesturesEnabled: true,
+                  zoomControlsEnabled: false,
+                  polylines: Set<Polyline>.of(snapshot.data!.values),
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController = controller;
+                  },
+                );
+              }),
+        );
+      },
     );
   }
 }
