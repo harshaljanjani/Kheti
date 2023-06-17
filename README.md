@@ -1,5 +1,5 @@
 # <ins>Kheti</ins> - <ins>Grow</ins> <ins>More</ins> <ins>With</ins> <ins>Less</ins>
-
+![image](https://github.com/harshaljanjani/Kheti/assets/75426551/1180585c-fbc6-4dee-a654-2f8ae865cd9a)
 ## <ins>Getting</ins> <ins>Started</ins>
 This project was created as part of a **12-hour business hackathon**, and is built to run on the Flutter _stable_ release.
 
